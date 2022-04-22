@@ -1,4 +1,4 @@
-package com.ecole.service.impl;
+package com.ecole.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
