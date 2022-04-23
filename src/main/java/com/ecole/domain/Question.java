@@ -28,17 +28,15 @@ public class Question {
 
     private String image="default.png";
 
-    private String reponse;
+    private String option_correcte;
+
+    private String option_choisie;
+
+    private int nbr_essai;
+
 
     @ManyToOne(fetch= FetchType.EAGER)
     private Examen examen;
 
-    public Long getIdQuest() {
-        return idQuest;
-    }
-
-    public void setIdQuest(Long idQuest) {
-        this.idQuest = idQuest;
-    }
 
 }

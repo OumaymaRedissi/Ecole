@@ -37,8 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	http.csrf().disable();
 	http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**").permitAll();
+	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/examen**").hasAnyAuthority("ROLE_ADMIN");
+	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.POST,"/examen**").hasAnyAuthority("ROLE_ADMIN");
+	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/matiere**").hasAnyAuthority("ROLE_ADMIN");
+	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.POST,"/matiere**").hasAnyAuthority("ROLE_ADMIN");
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/api/user/ajout**").hasAnyAuthority("ROLE_ADMIN");
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.POST,"/api/users/**").hasAnyAuthority("ROLE_ADMIN");
+	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/api/users**").hasAnyAuthority("ROLE_ADMIN");
+
 	http.authorizeRequests().anyRequest().authenticated();
 	http.addFilter(jWTAuthenticationFilter); 
 	//Authorization

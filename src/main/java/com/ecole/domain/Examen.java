@@ -1,16 +1,15 @@
 package com.ecole.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Examen {
@@ -29,6 +28,8 @@ public class Examen {
 
     @OneToMany(mappedBy="examen",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
     @JsonIgnore
-    private Set<Question> question=new HashSet<>();
+    private Set<Question> questions = new HashSet<>();
 
+    @ManyToOne
+    private Set<Resultat> resultats = new HashSet<>();
 }

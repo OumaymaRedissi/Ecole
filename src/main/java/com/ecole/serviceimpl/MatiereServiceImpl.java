@@ -3,13 +3,18 @@ package com.ecole.serviceimpl;
 import com.ecole.domain.Matiere;
 import com.ecole.repository.MatiereRepository;
 import com.ecole.service.MatiereService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Service
+@Service@RequiredArgsConstructor
+@Transactional
+@Slf4j
 public class MatiereServiceImpl implements MatiereService {
     @Autowired
     private MatiereRepository matiereRepository;
