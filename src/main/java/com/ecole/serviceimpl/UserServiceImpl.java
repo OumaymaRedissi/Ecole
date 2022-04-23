@@ -21,7 +21,10 @@ import com.ecole.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Service @RequiredArgsConstructor @Transactional @Slf4j
+@Service
+@RequiredArgsConstructor
+@Transactional
+@Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService{
 
 	private final UserRepository userRepository ;

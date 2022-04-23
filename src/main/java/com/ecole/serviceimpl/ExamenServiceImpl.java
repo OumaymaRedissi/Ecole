@@ -24,32 +24,40 @@ public class ExamenServiceImpl implements ExamenService {
 
     @Override
     public Examen addExamen(Examen examen) {
+        log.info("Ajout examen {}",examen.getTitle());
         return this.examenRepository.save(examen);
     }
 
     @Override
     public Examen updateExamen(Examen examen) {
+        log.info("Mise à jour  examen {}",examen.getTitle());
         return this.examenRepository.save(examen);
 
     }
 
     @Override
     public Set<Examen> getExamens() {
+        log.info("Listes de tous les examens");
         return new HashSet<>(this.examenRepository.findAll());
 
     }
 
     @Override
     public Examen getExamenById(Long exid) throws Exception {
+
         Examen examen=this.examenRepository.findById(exid).get();
         if(examen==null) {
+            log.error("Id examen introuvable");
+
             throw new Exception("Examen introuvable ");
         }
+        log.info("Extraction examen");
         return examen;
     }
 
     @Override
     public void deleteExamen(Long exid) throws Exception {
+
         Examen examen=this.examenRepository.findById(exid).get();
         if(examen==null) {
             throw new Exception("Examen introuvable ! ");
@@ -59,6 +67,7 @@ public class ExamenServiceImpl implements ExamenService {
 
     @Override
     public List<Examen> findExamensByMatiereId(Matiere matiere) {
+
         List<Examen> listOfExamensByMatiereId=this.examenRepository.findExamensByMatiere(matiere);
 
         System.out.println(listOfExamensByMatiereId);
@@ -76,7 +85,9 @@ public class ExamenServiceImpl implements ExamenService {
 
     @Override
     public List<Examen> findAllExamensActivesOfMatiere(Matiere matiere) {
+
         return this.examenRepository.findByMatiereAndEtat(matiere, true);
+
     }
 
 }

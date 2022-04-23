@@ -2,11 +2,16 @@ package com.ecole.api;
 
 import com.ecole.domain.Examen;
 import com.ecole.domain.Question;
+import com.ecole.domain.Resultat;
+import com.ecole.domain.User;
+import com.ecole.repository.UserRepository;
 import com.ecole.service.ExamenService;
 import com.ecole.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/api/question")
 @CrossOrigin("*")
 public class QuestionController {
     @Autowired
@@ -22,6 +27,9 @@ public class QuestionController {
 
     @Autowired
     private ExamenService examenService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping(value="/add",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Question> addQuestion(@RequestBody Question question){
@@ -36,7 +44,7 @@ public class QuestionController {
     @GetMapping("/{examenId}")
     public ResponseEntity<?> getAllQuestion(@PathVariable("examenId") Long examenId) throws Exception{
         Examen examen=this.examenService.getExamenById(examenId);
-        Set<Question> question=examen.getQuestion();
+        Set<Question> question=examen.getQuestions();
         List<Question> listOfQuestions=new ArrayList<>(question);
         if(listOfQuestions.size()>Integer.parseInt(examen.getNbrQuest())) {
             listOfQuestions=listOfQuestions.subList(0,Integer.parseInt(examen.getNbrQuest())+1);
@@ -48,7 +56,7 @@ public class QuestionController {
     public ResponseEntity<?> getAllQuestionForAdmin(@PathVariable("examenId") Long examenId) throws Exception{
         System.out.println("examen to be fetch with id :"+examenId);
         Examen examen=this.examenService.getExamenById(examenId);
-        Set<Question> question=examen.getQuestion();
+        Set<Question> question=examen.getQuestions();
         List<Question> listOfQuestions=new ArrayList<>(question);
         return ResponseEntity.ok(listOfQuestions);
     }
@@ -71,4 +79,5 @@ public class QuestionController {
 
         return ResponseEntity.ok(question);
     }
+
 }

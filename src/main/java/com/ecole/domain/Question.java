@@ -38,5 +38,8 @@ public class Question {
     @ManyToOne(fetch= FetchType.EAGER)
     private Examen examen;
 
+    boolean question_correcte(){
+        return this.getOption_correcte().equals(this.getOption_choisie());
+    }
 
 }

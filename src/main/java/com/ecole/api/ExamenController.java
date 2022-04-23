@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/examen")
+@RequestMapping("/api/examen")
 @CrossOrigin("*")
 public class ExamenController {
     @Autowired
@@ -18,9 +18,9 @@ public class ExamenController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<Examen> addExamen(@RequestBody Examen examen){
-        Examen Examen1=this.examenService.addExamen(examen);
-        return ResponseEntity.ok(Examen1);
+    public ResponseEntity<Examen> addExamen(@RequestBody Examen e){
+        Examen examen=this.examenService.addExamen(e);
+        return ResponseEntity.ok(examen);
     }
 
     @GetMapping("/{examenId}")

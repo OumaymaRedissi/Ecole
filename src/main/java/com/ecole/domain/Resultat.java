@@ -20,6 +20,7 @@ public class Resultat {
     private float note_obtenue;
     private int nbr_essai;
 
+
     @ManyToOne
     private Examen examen;
     @ManyToOne

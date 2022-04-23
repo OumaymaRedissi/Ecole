@@ -44,7 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/api/user/ajout**").hasAnyAuthority("ROLE_ADMIN");
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.POST,"/api/users/**").hasAnyAuthority("ROLE_ADMIN");
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/api/users**").hasAnyAuthority("ROLE_ADMIN");
-
 	http.authorizeRequests().anyRequest().authenticated();
 	http.addFilter(jWTAuthenticationFilter); 
 	//Authorization

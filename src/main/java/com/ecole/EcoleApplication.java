@@ -52,6 +52,9 @@ public class EcoleApplication {
 			userService.addRoleToUser("ross","ROLE_PROF");
 			userService.addRoleToUser("rachel","ROLE_ETUDIANT");
 			userService.addRoleToUser("joey","ROLE_USER");
+
+
+
 			
 		};
 	}

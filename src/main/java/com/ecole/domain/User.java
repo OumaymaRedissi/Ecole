@@ -25,10 +25,9 @@ public class User {
 	private String telephone;
 	private boolean active=true;
 
-	@ManyToOne
-	private Set<Resultat> resultats = new HashSet<>();
-	
+
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Collection<Role> roles= new ArrayList<>();
+
 
 }

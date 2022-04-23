@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/matiere")
+@RequestMapping("/api/matiere")
 @CrossOrigin("*")
 public class MatiereController {
     @Autowired

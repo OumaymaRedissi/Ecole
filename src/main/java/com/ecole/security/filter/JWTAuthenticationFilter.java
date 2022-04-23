@@ -62,7 +62,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.withExpiresAt(new Date(System.currentTimeMillis() + 10000*60*1000))
 				.withIssuer(request.getRequestURL().toString())
 				.sign(algorithm);
-	
 		//response.setHeader("access_token", access_token);
 		//response.setHeader("refresh_token", refresh_token);
 		Map<String,String> tokens = new HashMap<>();
@@ -70,9 +69,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		tokens.put("refresh_token", refresh_token);
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-		
 
-	
 	}
 
 }

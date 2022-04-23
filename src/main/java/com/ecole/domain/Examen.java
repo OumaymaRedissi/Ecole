@@ -20,7 +20,7 @@ public class Examen {
     private String title;
     private String description;
     private String nbrQuest;
-    private String note;
+    private float noteMax;
     private boolean etat=false;
 
     @ManyToOne(fetch=FetchType.EAGER)
@@ -30,6 +30,6 @@ public class Examen {
     @JsonIgnore
     private Set<Question> questions = new HashSet<>();
 
-    @ManyToOne
+    @OneToMany
     private Set<Resultat> resultats = new HashSet<>();
 }

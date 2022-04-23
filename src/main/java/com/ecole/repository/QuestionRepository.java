@@ -12,4 +12,5 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     Set<Question> findByExamen(Examen examen);
 
+
 }
