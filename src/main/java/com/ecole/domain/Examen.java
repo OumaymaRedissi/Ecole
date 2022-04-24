@@ -25,9 +25,9 @@ public class Examen {
     @ManyToOne(fetch=FetchType.EAGER)
     private Matiere matiere;
 
-    @OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "examen",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Question> questions = new HashSet<>();
 
-    @OneToMany
-    private Set<Resultat> resultats = new HashSet<>();
+    //@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    //private Set<Resultat> resultats = new HashSet<>();
 }

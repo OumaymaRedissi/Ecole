@@ -2,6 +2,7 @@ package com.ecole.service;
 
 import com.ecole.domain.Examen;
 import com.ecole.domain.Matiere;
+import com.ecole.domain.Resultat;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,4 +28,5 @@ public interface ExamenService {
     public List<Examen> findAllExamensActivesOfMatiere(Matiere matiere);
 
 
+    Resultat evaluationExamen(Examen examen);
 }

@@ -2,6 +2,7 @@ package com.ecole.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,14 +39,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	jWTAuthenticationFilter.setFilterProcessesUrl("/api/login");
 	http.csrf().disable();
 	http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-	http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**").permitAll();
-	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/examen**").hasAnyAuthority("ROLE_ADMIN");
+		http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**").permitAll();
+		http.authorizeRequests().antMatchers("/api**").hasAnyAuthority("ROLE_ADMIN");
+
+		http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/examen/add**").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/examen/update**").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF");
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.POST,"/examen**").hasAnyAuthority("ROLE_ADMIN");
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/matiere**").hasAnyAuthority("ROLE_ADMIN");
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.POST,"/matiere**").hasAnyAuthority("ROLE_ADMIN");
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/api/user/ajout**").hasAnyAuthority("ROLE_ADMIN");
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.POST,"/api/users/**").hasAnyAuthority("ROLE_ADMIN");
 	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/api/users**").hasAnyAuthority("ROLE_ADMIN");
+	//Prof
+
 	http.authorizeRequests().anyRequest().authenticated();
 	http.addFilter(jWTAuthenticationFilter); 
 	//Authorization

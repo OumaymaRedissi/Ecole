@@ -61,8 +61,8 @@ public class EcoleApplication {
 			matiereService.saveMatiere(new Matiere(null,"Java","Algorithmique",null));
 			matiereService.saveMatiere(new Matiere(null,"Prog","Algorithmique",null));
 
-			examenService.saveExamen(new Examen(null,"DS1","Examen de DS", 20,true,matiereService.getMatiereById(3L),new HashSet<>(),new HashSet<>()));
-			examenService.saveExamen(new Examen(null,"TP3","Examen de TP3", 20,true,matiereService.getMatiereById(2L),new HashSet<>(),new HashSet<>()));
+			examenService.saveExamen(new Examen(null,"DS1","Examen de DS", 20,true,matiereService.getMatiereById(3L),new HashSet<>()));
+			examenService.saveExamen(new Examen(null,"TP3","Examen de TP3", 20,true,matiereService.getMatiereById(2L),new HashSet<>()));
 
 
 

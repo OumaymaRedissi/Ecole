@@ -1,5 +1,6 @@
 package com.ecole.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,11 @@ public class Resultat {
     private int nbr_essai;
 
 
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.EAGER)
+    @JsonIgnore
     private Examen examen;
-    @ManyToOne
+
+    @ManyToOne(fetch= FetchType.EAGER)
+    @JsonIgnore
     private User user_etud;
 }

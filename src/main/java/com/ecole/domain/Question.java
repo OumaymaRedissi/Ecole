@@ -18,7 +18,6 @@ public class Question {
 
     private String enonce;
 
-
     private String option1;
 
     private String option2;

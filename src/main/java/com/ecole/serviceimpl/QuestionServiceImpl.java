@@ -87,7 +87,7 @@ public class QuestionServiceImpl  implements QuestionService {
             ex.getQuestions().add(ques);
             this.examenRepository.save(ex);
         }
-
+    }
 
     }
-}
+
