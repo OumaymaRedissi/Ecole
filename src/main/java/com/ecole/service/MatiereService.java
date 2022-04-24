@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 @Service
 public interface MatiereService {
-    public Matiere addMatiere(Matiere matiere);
+    public Matiere saveMatiere(Matiere matiere);
 
     public Matiere updateMatiere(Matiere matiere);
 

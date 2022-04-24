@@ -2,16 +2,12 @@ package com.ecole.api;
 
 import com.ecole.domain.Examen;
 import com.ecole.domain.Question;
-import com.ecole.domain.Resultat;
-import com.ecole.domain.User;
 import com.ecole.repository.UserRepository;
 import com.ecole.service.ExamenService;
 import com.ecole.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,23 +29,19 @@ public class QuestionController {
 
     @PostMapping(value="/add",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Question> addQuestion(@RequestBody Question question){
-        return ResponseEntity.ok(this.questionService.addQuestion(question));
+        return ResponseEntity.ok(this.questionService.saveQuestion(question));
     }
 
     @PutMapping(value="/update",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Question> updateQuestion(@RequestBody Question question){
-        return ResponseEntity.ok(this.questionService.addQuestion(question));
+        return ResponseEntity.ok(this.questionService.saveQuestion(question));
     }
 
     @GetMapping("/{examenId}")
     public ResponseEntity<?> getAllQuestion(@PathVariable("examenId") Long examenId) throws Exception{
         Examen examen=this.examenService.getExamenById(examenId);
-        Set<Question> question=examen.getQuestions();
-        List<Question> listOfQuestions=new ArrayList<>(question);
-        if(listOfQuestions.size()>Integer.parseInt(examen.getNbrQuest())) {
-            listOfQuestions=listOfQuestions.subList(0,Integer.parseInt(examen.getNbrQuest())+1);
-        }
-        return ResponseEntity.ok(listOfQuestions);
+        Set<Question> questions=examen.getQuestions();
+        return ResponseEntity.ok(questions);
     }
 
     @GetMapping("/admin/{examenId}")

@@ -20,7 +20,7 @@ public class MatiereServiceImpl implements MatiereService {
     @Autowired
     private MatiereRepository matiereRepository;
     @Override
-    public Matiere addMatiere(Matiere matiere) {
+    public Matiere saveMatiere(Matiere matiere) {
         log.info("Enregistrement nouvelle Matiere {} à la BD",matiere.getTitle());
         return this.matiereRepository.save(matiere);
     }

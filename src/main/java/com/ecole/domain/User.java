@@ -7,12 +7,16 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
+import lombok.*;
+
+@Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idUser;
 	private String nomPrenom;
 
@@ -24,7 +28,6 @@ public class User {
 	private String email;
 	private String telephone;
 	private boolean active=true;
-
 
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Collection<Role> roles= new ArrayList<>();

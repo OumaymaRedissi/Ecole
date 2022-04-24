@@ -1,13 +1,13 @@
 package com.ecole.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
@@ -17,6 +17,7 @@ public class Question {
     private Long idQuest;
 
     private String enonce;
+
 
     private String option1;
 
@@ -36,10 +37,11 @@ public class Question {
 
 
     @ManyToOne(fetch= FetchType.EAGER)
+    @JsonIgnore
     private Examen examen;
 
     boolean question_correcte(){
+
         return this.getOption_correcte().equals(this.getOption_choisie());
     }
-
 }

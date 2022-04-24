@@ -23,7 +23,7 @@ public class ExamenServiceImpl implements ExamenService {
     private ExamenRepository examenRepository;
 
     @Override
-    public Examen addExamen(Examen examen) {
+    public Examen saveExamen(Examen examen) {
         log.info("Ajout examen {}",examen.getTitle());
         return this.examenRepository.save(examen);
     }
@@ -89,5 +89,7 @@ public class ExamenServiceImpl implements ExamenService {
         return this.examenRepository.findByMatiereAndEtat(matiere, true);
 
     }
+
+
 
 }

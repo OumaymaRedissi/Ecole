@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Service
 public interface QuestionService {
-    public Question addQuestion(Question question);
+    public Question saveQuestion(Question question);
 
     public Question updateQuestion(Question question);
 
@@ -20,4 +20,5 @@ public interface QuestionService {
 
     public Question getQuestionById(Long idQuest) throws Exception;
 
+    void addQuestionToExamens(Long examenId, Long questionId);
 }

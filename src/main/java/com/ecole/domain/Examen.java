@@ -19,15 +19,13 @@ public class Examen {
 
     private String title;
     private String description;
-    private String nbrQuest;
     private float noteMax;
-    private boolean etat=false;
+    private boolean etat=true;
 
     @ManyToOne(fetch=FetchType.EAGER)
     private Matiere matiere;
 
-    @OneToMany(mappedBy="examen",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Question> questions = new HashSet<>();
 
     @OneToMany

@@ -17,42 +17,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ecole.service.UserService;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class UserController {
-	@Autowired
-	private QuestionService questionService;
 
-	@Autowired
-	private ExamenService examenService;
-
-	@Autowired
-	private UserRepository userRepository;
 
 	private final UserService userService;    
 	
@@ -115,47 +100,7 @@ public class UserController {
 
 	}
 
-	@PostMapping("/etudiant/evaluation-examen")
-	public ResponseEntity<?> evaluationExamen (@RequestBody Examen examen){
-		System.out.println(examen.getQuestions());
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username=null;
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails)principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		//Initialization du resultat et affectation d'un etudiant
-		User u=this.userRepository.findByUsername(username);
-		Resultat resultat=new Resultat();
-		resultat.setUser_etud(u);
-		Integer nbr_reponses_correctes= 0;
-		float note_obtenue = 0;
-		Integer essai=0;
-		for(Question question:examen.getQuestions()) {
-			try {
-				Question q=this.questionService.getQuestionById(question.getIdQuest());
-				//set specific question attended by user in his/her attempted quiz so it can access limited number of time to quiz
-				if(question.getOption_choisie().trim().equals(question.getOption_correcte().trim())) {
-					nbr_reponses_correctes=nbr_reponses_correctes+1;
-					essai++;
-				}
-				else {
-					essai++;
-				}
-				float note_obtenue_par_question=examen.getNoteMax()/examen.getQuestions().size();
-				note_obtenue=nbr_reponses_correctes*note_obtenue_par_question;
-				//set a list to questions in users attempted quiz
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 
-		}
-		resultat.setNbr_reponses_correctes(nbr_reponses_correctes);
-		resultat.setNbr_essai(essai);
-		resultat.setNote_obtenue(note_obtenue);
-		return ResponseEntity.ok(resultat);
-	}
 }
 
 

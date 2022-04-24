@@ -11,6 +11,6 @@ import java.util.Set;
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     Set<Question> findByExamen(Examen examen);
-
+    Question findByIdQuest(Long idQuest);
 
 }

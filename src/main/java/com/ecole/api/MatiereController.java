@@ -17,7 +17,7 @@ public class MatiereController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addMatiere(@RequestBody Matiere matiere){
-        Matiere matiere1=this.matiereService.addMatiere(matiere);
+        Matiere matiere1=this.matiereService.saveMatiere(matiere);
         return ResponseEntity.ok(matiere1);
     }
 
@@ -34,17 +34,17 @@ public class MatiereController {
 
     @GetMapping("/getAllMatiere")
     public ResponseEntity<?> getAllMatiere() throws Exception{
-        Set<Matiere> categories=this.matiereService.getMatieres();
-        if(categories==null) {
+        Set<Matiere> matieres=this.matiereService.getMatieres();
+        if(matieres==null) {
             throw new Exception("there is no matiere in the database");
         }
-        return ResponseEntity.ok(categories);
+        return ResponseEntity.ok(matieres);
     }
 
     @PutMapping("/update")
     public ResponseEntity<?> updateMatiere(@RequestBody Matiere matiere) {
-        Matiere matiere1=this.matiereService.updateMatiere(matiere);
-        return ResponseEntity.ok(matiere1);
+        Matiere mat=this.matiereService.updateMatiere(matiere);
+        return ResponseEntity.ok(mat);
     }
 
     @DeleteMapping("/{idmat}")

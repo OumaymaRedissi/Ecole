@@ -2,6 +2,7 @@ package com.ecole.serviceimpl;
 
 import com.ecole.domain.Examen;
 import com.ecole.domain.Question;
+import com.ecole.repository.ExamenRepository;
 import com.ecole.repository.QuestionRepository;
 import com.ecole.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +20,11 @@ import java.util.Set;
 public class QuestionServiceImpl  implements QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private ExamenRepository examenRepository;
 
     @Override
-    public Question addQuestion(Question question) {
+    public Question saveQuestion(Question question) {
         log.info("Enregistrement nouvelle Question {} à la BD",question.getEnonce());
         return this.questionRepository.save(question);
     }
@@ -67,5 +70,24 @@ public class QuestionServiceImpl  implements QuestionService {
         log.info("Extraction question ");
 
         return question;
+    }
+
+    @Override
+    public void addQuestionToExamens(Long examenId, Long questionId) {
+        Examen ex = this.examenRepository.findByIdExam(examenId);
+        Question ques = this.questionRepository.findByIdQuest(questionId);
+
+        if(ex == null || ques == null) {
+            log.error("Examen ou question introuvable ");
+        }
+        else {
+            log.info("Question {} est ajoutée à l'examen {}",questionId,examenId);
+            ques.setExamen(ex);
+            this.questionRepository.save(ques);
+            ex.getQuestions().add(ques);
+            this.examenRepository.save(ex);
+        }
+
+
     }
 }

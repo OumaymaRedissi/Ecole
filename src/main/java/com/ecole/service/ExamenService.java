@@ -10,7 +10,7 @@ import java.util.Set;
 @Service
 public interface ExamenService {
 
-    public Examen addExamen(Examen Examen);
+    public Examen saveExamen(Examen Examen);
 
     public Examen updateExamen(Examen Examen);
 

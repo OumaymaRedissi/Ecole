@@ -17,7 +17,9 @@ import com.ecole.security.filter.JWTAuthorizationFilter;
 
 import lombok.RequiredArgsConstructor;
 
-@Configuration @EnableWebSecurity @RequiredArgsConstructor
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	
