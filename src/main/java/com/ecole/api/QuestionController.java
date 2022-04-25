@@ -27,40 +27,39 @@ public class QuestionController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping(value="/add",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/prof/add",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Question> addQuestion(@RequestBody Question question){
         return ResponseEntity.ok(this.questionService.saveQuestion(question));
     }
 
-    @PutMapping(value="/update",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value="/prof/update",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Question> updateQuestion(@RequestBody Question question){
         return ResponseEntity.ok(this.questionService.saveQuestion(question));
     }
 
-    @GetMapping("/{examenId}")
+    @GetMapping("/etudiant/{examenId}")
     public ResponseEntity<?> getAllQuestion(@PathVariable("examenId") Long examenId) throws Exception{
         Examen examen=this.examenService.getExamenById(examenId);
         Set<Question> questions=examen.getQuestions();
         return ResponseEntity.ok(questions);
     }
 
-    @GetMapping("/admin/{examenId}")
-    public ResponseEntity<?> getAllQuestionForAdmin(@PathVariable("examenId") Long examenId) throws Exception{
-        System.out.println("examen to be fetch with id :"+examenId);
-        Examen examen=this.examenService.getExamenById(examenId);
-        Set<Question> question=examen.getQuestions();
-        List<Question> listOfQuestions=new ArrayList<>(question);
-        return ResponseEntity.ok(listOfQuestions);
+    @GetMapping("/admin")
+    public ResponseEntity<?> getAllQuestions() throws Exception{
+
+        Set<Question> questions=this.questionService.getQuestions();
+        List<Question> q=new ArrayList<>(questions);
+        return ResponseEntity.ok(q);
     }
 
-    @GetMapping("/ById/{quesId}")
+    @GetMapping("/admin/ById/{quesId}")
     public Question getQuestion(@PathVariable("quesId") Long quesId) throws Exception {
         Question question=this.questionService.getQuestionById(quesId);
         System.out.println(" enonce de la question:"+question.getEnonce());
         return this.questionService.getQuestionById(quesId);
     }
 
-    @DeleteMapping("/{idques}")
+    @DeleteMapping("/admin/{idques}")
     public ResponseEntity<?>deleteQuestion(@PathVariable("idques") Long idques) throws Exception {
         System.out.println("question to be deleted with request question id is: "+idques);
         Question question=this.questionService.getQuestionById(idques);

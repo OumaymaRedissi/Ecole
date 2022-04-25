@@ -40,18 +40,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	http.csrf().disable();
 	http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**").permitAll();
-		http.authorizeRequests().antMatchers("/api**").hasAnyAuthority("ROLE_ADMIN");
 
 		http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/examen/add**").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/examen/update**").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF");
-	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.POST,"/examen**").hasAnyAuthority("ROLE_ADMIN");
-	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/matiere**").hasAnyAuthority("ROLE_ADMIN");
-	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.POST,"/matiere**").hasAnyAuthority("ROLE_ADMIN");
-	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/api/user/ajout**").hasAnyAuthority("ROLE_ADMIN");
-	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.POST,"/api/users/**").hasAnyAuthority("ROLE_ADMIN");
-	http.authorizeRequests().antMatchers(org.springframework.http.HttpMethod.GET,"/api/users**").hasAnyAuthority("ROLE_ADMIN");
-	//Prof
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/api/examen/**").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF");
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/examen/ByMatiere/{idmat}").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF");
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/examen/**").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF","ROLE_ETUDIANT");
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/examen/active").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF","ROLE_ETUDIANT");
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/examen/matiere/active/{idmat}").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF","ROLE_ETUDIANT");
 
+		http.authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/api/question/admin/**").hasAnyAuthority("ROLE_ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/api/question/prof**").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF");
+		http.authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/api/question/etudiant/**").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF","ROLE_ETUDIANT");
+
+
+		http.authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/api/matiere/admin**").hasAnyAuthority("ROLE_ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/matiere/**").hasAnyAuthority("ROLE_ADMIN","ROLE_PROF","ROLE_ETUDIANT");
+
+		http.authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/api/user/**").hasAnyAuthority("ROLE_ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/users**").hasAnyAuthority("ROLE_ADMIN");
 	http.authorizeRequests().anyRequest().authenticated();
 	http.addFilter(jWTAuthenticationFilter); 
 	//Authorization

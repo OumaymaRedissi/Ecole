@@ -15,7 +15,7 @@ public class MatiereController {
     @Autowired
     private MatiereService matiereService;
 
-    @PostMapping("/add")
+    @PostMapping("/admin/add")
     public ResponseEntity<?> addMatiere(@RequestBody Matiere matiere){
         Matiere matiere1=this.matiereService.saveMatiere(matiere);
         return ResponseEntity.ok(matiere1);
@@ -41,13 +41,13 @@ public class MatiereController {
         return ResponseEntity.ok(matieres);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/admin/update")
     public ResponseEntity<?> updateMatiere(@RequestBody Matiere matiere) {
         Matiere mat=this.matiereService.updateMatiere(matiere);
         return ResponseEntity.ok(mat);
     }
 
-    @DeleteMapping("/{idmat}")
+    @DeleteMapping("/admin/{idmat}")
     public ResponseEntity<?>deleteMatiere(@PathVariable("idmat") Long idmat) throws Exception {
         System.out.println("matiere to be deleted with request matiere id is: "+idmat);
         Matiere matiere=this.matiereService.getMatiereById(idmat);

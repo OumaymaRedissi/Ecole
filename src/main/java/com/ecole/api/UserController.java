@@ -53,7 +53,7 @@ public class UserController {
 		return ResponseEntity.created(uri).body(userService.saveUser(user));
 	}
 	
-	@PostMapping("/role/ajout")
+	@PostMapping("/user/role/ajout")
 	public ResponseEntity<Role>ajoutRole(@RequestBody Role role){
 		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("api/role/ajout").toUriString());
 		return ResponseEntity.created(uri).body(userService.saveRole(role));

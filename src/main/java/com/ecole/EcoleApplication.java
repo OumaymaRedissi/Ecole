@@ -36,13 +36,12 @@ public class EcoleApplication {
 			Role role_admin = new Role(null,"ROLE_ADMIN");
 			Role role_prof = new Role(null,"ROLE_PROF");
 			Role role_etudiant = new Role(null,"ROLE_ETUDIANT");
-			Role role_user = new Role(null,"ROLE_USER");
-			
+
 			
 			userService.saveRole(role_admin);
 			userService.saveRole(role_prof);
 			userService.saveRole(role_etudiant);
-			userService.saveRole(role_user);
+			userService.saveRole(role_etudiant);
 
 			
 			userService.saveUser(new User(null,"Phoebe Buffay","phoebe","Azerty123","phoebe@gmail.com","90909090",true,new ArrayList<>()));
